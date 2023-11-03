@@ -33,7 +33,7 @@
     .accessory {
         display: flex;
         width: 100%;
-        background-color: gray;
+        background-color: #4d4d4d;
         border-bottom-left-radius: 16px;
         border-bottom-right-radius: 16px;
         justify-content: space-between;
@@ -60,6 +60,7 @@
         color: white;
         font-size: 32pt;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
+        height: 50px;
     }
 
     .main {
@@ -92,12 +93,12 @@
 
     #Player1 {
         flex: 1;
-        background-color: red;
+        background-color: rgba(4, 150, 255)
     }
 
     #Player2 {
         flex: 1;
-        background-color: blue;
+        background-color: rgb(216 17 89);
     }
 
     .player {
@@ -113,13 +114,13 @@
         <div class="accessory" id="Player1_Accessory">
             <span class="special">
                 <button class="decrement">-</button>
-                <span class="icon">&#9733;</span>
+                <span class="icon"><img src="star.png"/></span>
                 <span class="total">0</span>
                 <button class="increment">+</button>
             </span>
             <span class="life">
                 <button class="decrement">-</button>
-                <span class="icon">&#9829;</span>
+                <span class="icon"><img src="heart.png"/></span>
                 <span class="total">15</span>
                 <button class="increment">+</button>
             </span>
@@ -146,14 +147,14 @@
         <div class="accessory">
             <span class="special">
                 <button class="decrement">-</button>
-                <span class="icon">&#9733;</span>
+                <span class="icon"><img src="star.png"/></span>
                 <span class="total">0</span>
                 <button class="increment">+</button>
             </span>
 
             <span class="life">
                 <button class="decrement">-</button>
-                <span class="icon">&#9829;</span>
+                <span class="icon"><img src="heart.png"/></span>
                 <span class="total">15</span>
                 <button class="increment">+</button>
             </span>
