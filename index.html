@@ -64,7 +64,7 @@
         -webkit-transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
-        width: 44px;
+        width: 24px;
     }
 
     .accessory .increment img {
@@ -74,7 +74,7 @@
         -webkit-transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
-        width: 44px;
+        width: 24px;
     }
 
     .decrement,
@@ -88,67 +88,79 @@
 
     .accessory .decrement,
     .accessory .increment {
-        width: 44px;
-        height: 44px;
+        width: 32px;
+        height: 32px;
     }
 
-    .damage .decrement {
+    .lifeLeft .decrement {
         flex: 1;
-        min-width: 100px;
-        min-height: 100px;
-        margin-right: -10px;
+        min-width: 44px;
+        height: 100%;
+        z-index: 1;
     }
 
-    .damage .increment {
+    .lifeLeft .increment {
         flex: 1;
-        min-width: 100px;
-        min-height: 100px;
+        min-width: 44px;
+        height: 100%;
+        z-index: 1;
     }
 
     .icon,
     .total {
         color: white;
-        font-size: 32pt;
+        font-size: 24pt;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
 
     .icon img,
     .total img {
-        height: 50px;
-        width: 50px;
+        height: 32px;
+        width: 32px;
     }
 
     .main {
         display: flex;
         justify-content: center;
-        width: 100%
+        width: 100%;
+        height: 100%;
     }
 
-    .damage {
+    .lifeLeft {
+        height: 100%;
         width: 100%;
         display: flex;
         align-items: center;
         gap: 8px;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
     }
 
-    .damage .total {
-        font-size: 136pt;
+    .lifeLeft .total {
+        font-size: 100pt;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0);
     }
 
-    .damage .decrement img {
+    .lifeLeft .decrement img {
         position: absolute;
         top: 50%;
-        right: 5%;
+        left: 40px;
         -webkit-transform: translate(0%, -50%);
         -ms-transform: translate(0%, -50%);
         transform: translate(00%, -50%);
         width: 44px;
     }
 
-    .damage .increment img {
+    .lifeLeft .increment img {
         position: absolute;
         top: 50%;
-        left: 5%;
+        right: 40px;
         -webkit-transform: translate(0%, -50%);
         -ms-transform: translate(0%, -50%);
         transform: translate(0%, -50%);
@@ -187,50 +199,50 @@
         <div class="veritical-spacer"></div>
         <div class="accessory" id="Player1_Accessory">
             <span class="special">
-                <button class="decrement"><img src="minus.png" /></button>
+                <button class="decrement" id="Player1_Special_Decrement"><img src="minus.png" /></button>
                 <span class="icon"><img src="star.png" /></span>
                 <span class="total" id="Player1_Special">0</span>
-                <button class="increment"><img src="plus.png" /></button>
+                <button class="increment" id="Player1_Special_Increment"><img src="plus.png" /></button>
             </span>
             <span class="life">
-                <button class="decrement"><img src="minus.png" /></button>
+                <button class="decrement" id="Player1_Life_Decrement"><img src="minus.png" /></button>
                 <span class="icon"><img src="heart.png" /></span>
                 <span class="total" id="Player1_Life">15</span>
-                <button class="increment"><img src="plus.png" /></button>
+                <button class="increment" id="Player1_Life_Increment"><img src="plus.png" /></button>
             </span>
         </div>
         <div class="player" id="Player1">
             <div class="main">
-                <div class="damage">
-                    <button class="decrement"><img src="minus.png" /></button>
-                    <span class="total" id="Player1_Damage">0</span>
-                    <button class="increment"><img src="plus.png" /></button>
+                <div class="lifeLeft">
+                    <button class="decrement" id="Player1_LifeLeft_Decrement"><img src="minus.png" /></button>
+                    <span class="total" id="Player1_LifeLeft">0</span>
+                    <button class="increment" id="Player1_LifeLeft_Increment"><img src="plus.png" /></button>
                 </div>
             </div>
         </div>
         <div class="controls"></div>
         <div class="player" id="Player2">
             <div class="main">
-                <div class="damage">
-                    <button class="decrement"><img src="minus.png" /></button>
-                    <span class="total" id="Player2_Damage">0</span>
-                    <button class="increment"><img src="plus.png" /></button>
+                <div class="lifeLeft">
+                    <button class="decrement" id="Player2_LifeLeft_Decrement"><img src="minus.png" /></button>
+                    <span class="total" id="Player2_LifeLeft">0</span>
+                    <button class="increment" id="Player2_LifeLeft_Increment"><img src="plus.png" /></button>
                 </div>
             </div>
         </div>
         <div class="accessory">
             <span class="special">
-                <button class="decrement"><img src="minus.png" /></button>
+                <button class="decrement" id="Player2_Special_Decrement"><img src="minus.png" /></button>
                 <span class="icon"><img src="star.png" /></span>
                 <span class="total" id="Player2_Special">0</span>
-                <button class="increment"><img src="plus.png" /></button>
+                <button class="increment" id="Player2_Special_Increment"><img src="plus.png" /></button>
             </span>
 
             <span class="life">
-                <button class="decrement"><img src="minus.png" /></button>
+                <button class="decrement" id="Player2_Life_Decrement"><img src="minus.png" /></button>
                 <span class="icon"><img src="heart.png" /></span>
                 <span class="total" id="Player2_Life">15</span>
-                <button class="increment"><img src="plus.png" /></button>
+                <button class="increment" id="Player2_Life_Increment"><img src="plus.png" /></button>
             </span>
         </div>
         <div class="veritical-spacer"></div>
