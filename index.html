@@ -37,12 +37,37 @@
         border-bottom-left-radius: 16px;
         border-bottom-right-radius: 16px;
         justify-content: space-between;
+        align-items: center;
+        padding-top: 8px;
+        padding-bottom: 8px;
     }
 
     .special,
     .life {
         display: flex;
+        gap: 8px;
         align-items: center;
+    }
+
+    .special {
+        padding-left: 18px;
+    }
+
+    .life {
+        padding-right: 18px;
+    }
+
+    .decrement img {
+        width: 32px;
+    }
+
+    .increment img {
+        width: 32px;
+    }
+
+    .decrement {
+        height: 40px;
+        width: 40px;
     }
 
     .decrement,
@@ -51,8 +76,6 @@
         border: none;
         color: white;
         font-size: 50pt;
-        padding-left: 10px;
-        padding-right: 10px;
     }
 
     .icon,
@@ -73,16 +96,14 @@
 
     .damage {
         display: flex;
+        align-items: center;
+        gap: 8px;
         margin: auto;
         width: auto;
     }
 
     .damage .total {
         font-size: 136pt;
-    }
-
-    .damage .increment {
-        padding-left: 30px;
     }
 
     #Player1,
@@ -117,24 +138,24 @@
         <div class="veritical-spacer"></div>
         <div class="accessory" id="Player1_Accessory">
             <span class="special">
-                <button class="decrement">-</button>
+                <button class="decrement"><img src="minus.png"/></button>
                 <span class="icon"><img src="star.png"/></span>
                 <span class="total">0</span>
-                <button class="increment">+</button>
+                <button class="increment"><img src="plus.png"/></button>
             </span>
             <span class="life">
-                <button class="decrement">-</button>
+                <button class="decrement"><img src="minus.png"/></button>
                 <span class="icon"><img src="heart.png"/></span>
                 <span class="total">15</span>
-                <button class="increment">+</button>
+                <button class="increment"><img src="plus.png"/></button>
             </span>
         </div>
         <div class="player" id="Player1">
             <div class="main">
                 <div class="damage">
-                    <button class="decrement">-</button>
+                    <button class="decrement"><img src="minus.png"/></button>
                     <span class="total">0</span>
-                    <button class="increment">+</button>
+                    <button class="increment"><img src="plus.png"/></button>
                 </div>
             </div>
         </div>
@@ -142,25 +163,25 @@
         <div class="player" id="Player2">
             <div class="main">
                 <div class="damage">
-                    <button class="decrement">-</button>
+                    <button class="decrement"><img src="minus.png"/></button>
                     <span class="total">0</span>
-                    <button class="increment">+</button>
+                    <button class="increment"><img src="plus.png"/></button>
                 </div>
             </div>
         </div>
         <div class="accessory">
             <span class="special">
-                <button class="decrement">-</button>
+                <button class="decrement"><img src="minus.png"/></button>
                 <span class="icon"><img src="star.png"/></span>
                 <span class="total">0</span>
-                <button class="increment">+</button>
+                <button class="increment"><img src="plus.png"/></button>
             </span>
 
             <span class="life">
-                <button class="decrement">-</button>
+                <button class="decrement"><img src="minus.png"/></button>
                 <span class="icon"><img src="heart.png"/></span>
                 <span class="total">15</span>
-                <button class="increment">+</button>
+                <button class="increment"><img src="plus.png"/></button>
             </span>
         </div>
         <div class="veritical-spacer"></div>
