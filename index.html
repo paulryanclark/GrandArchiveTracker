@@ -1,6 +1,7 @@
 <head>
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
 </head>
 <style>
     button {
@@ -15,7 +16,7 @@
     .flex-container {
         display: flex;
         flex-flow: column;
-        height: 100vh;
+        height: 100svh;
     }
 
     .accessory {
@@ -68,45 +69,42 @@
         padding-left: 30px;
     }
 
-    #Player1 {
+    #Player1,
+    #Player1_Accessory {
         width: 100%;
         -webkit-transform: rotate(180deg);
         -moz-transform: rotate(180deg);
         -o-transform: rotate(180deg);
         -ms-transform: rotate(180deg);
         transform: rotate(180deg);
+    }
+
+    #Player1 {
         flex: 1;
-    }
-
-    #Player2 {
-        flex: 2;
-    }
-
-    #Player1 .main {
         background-color: red;
     }
 
-    #Player2 .main {
+    #Player2 {
+        flex: 1;
         background-color: blue;
     }
+
+    .player {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        justify-content: center;
+    }
 </style>
-<div class="flex-container">
-    <div class="player" id="Player1">
-        <div class="main">
-            <div class="damage">
-                <button class="decrement">-</button>
-                <span class="total">0</span>
-                <button class="increment">+</button>
-            </div>
-        </div>
-        <div class="accessory">
+<div class="container">
+    <div class="flex-container">
+        <div class="accessory" id="Player1_Accessory">
             <span class="special">
                 <button class="decrement">-</button>
                 <span class="icon">&#9733;</span>
                 <span class="total">0</span>
                 <button class="increment">+</button>
             </span>
-
             <span class="life">
                 <button class="decrement">-</button>
                 <span class="icon">&#9829;</span>
@@ -114,14 +112,23 @@
                 <button class="increment">+</button>
             </span>
         </div>
-    </div>
-    <div class="controls"></div>
-    <div class="player" id="Player2">
-        <div class="main">
-            <div class="damage">
-                <button class="decrement">-</button>
-                <span class="total">0</span>
-                <button class="increment">+</button>
+        <div class="player" id="Player1">
+            <div class="main">
+                <div class="damage">
+                    <button class="decrement">-</button>
+                    <span class="total">0</span>
+                    <button class="increment">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="controls"></div>
+        <div class="player" id="Player2">
+            <div class="main">
+                <div class="damage">
+                    <button class="decrement">-</button>
+                    <span class="total">0</span>
+                    <button class="increment">+</button>
+                </div>
             </div>
         </div>
         <div class="accessory">
