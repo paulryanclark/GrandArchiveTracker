@@ -50,6 +50,37 @@
         padding-top: 8px;
         padding-bottom: 8px;
     }
+    
+    .controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60px;
+        position: relative;
+    }
+
+    .reset, .reset_confirm {
+        background-color: transparent;
+        border: none;
+        color: white;
+    }
+
+    .reset {
+        height: 44px;
+        width: 44px;
+    }
+
+    .reset_confirm {
+        position: absolute;
+        right: 0;
+        font-size: 24pt;
+        display: none;
+    }
+
+    .controls .reset img {
+        height: 32px;
+        width: 32px;
+    }
 
     .special,
     .life {
@@ -229,7 +260,10 @@
                 </div>
             </div>
         </div>
-        <div class="controls"></div>
+        <div class="controls">
+            <button class="reset"><img src="circle-slash.png" /></button>
+            <button class="reset_confirm">Reset?</button>
+        </div>
         <div class="player" id="Player2">
             <div class="main">
                 <div class="lifeLeft">
