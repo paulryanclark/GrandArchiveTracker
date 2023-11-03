@@ -18,6 +18,7 @@
     html body {
         overflow: hidden;
         margin: 0px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
 
     body {
@@ -50,7 +51,7 @@
         padding-top: 8px;
         padding-bottom: 8px;
     }
-    
+
     .controls {
         display: flex;
         justify-content: center;
@@ -59,7 +60,8 @@
         position: relative;
     }
 
-    .reset, .reset_confirm {
+    .reset,
+    .reset_confirm {
         background-color: transparent;
         border: none;
         color: white;
@@ -150,7 +152,6 @@
     .total {
         color: white;
         font-size: 24pt;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
 
     .icon img,
@@ -178,13 +179,29 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
+        position: relative;
+    }
+
+    .lifeLeft .total_container {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
     }
 
     .lifeLeft .total {
         font-size: 100pt;
+    }
+
+    .lifeLeft .damage_changed {
         position: absolute;
+        bottom: -24px;
         left: 50%;
-        transform: translate(-50%, 0);
+        color: white;
+        font-size: 24pt;
+        -webkit-transform: translate(-50%, 0%);
+        -ms-transform: translate(0%, -50%);
+        transform: translate(-50%, 0%);
     }
 
     .lifeLeft .decrement img {
@@ -255,20 +272,26 @@
             <div class="main">
                 <div class="lifeLeft">
                     <button class="decrement" id="Player1_LifeLeft_Decrement"><img src="minus.png" /></button>
-                    <span class="total" id="Player1_LifeLeft">0</span>
+                    <div class="total_container">
+                        <span class="total" id="Player1_LifeLeft">0</span>
+                        <span class="damage_changed" id="Player1_DamageChanged"></span>
+                    </div>
                     <button class="increment" id="Player1_LifeLeft_Increment"><img src="plus.png" /></button>
                 </div>
             </div>
         </div>
         <div class="controls">
-            <button class="reset"><img src="circle-slash.png" /></button>
-            <button class="reset_confirm">Reset?</button>
+            <button class="reset" id="Player_Reset"><img src="circle-slash.png" /></button>
+            <button class="reset_confirm" id="Player_Reset_Confirm">Reset?</button>
         </div>
         <div class="player" id="Player2">
             <div class="main">
                 <div class="lifeLeft">
                     <button class="decrement" id="Player2_LifeLeft_Decrement"><img src="minus.png" /></button>
-                    <span class="total" id="Player2_LifeLeft">0</span>
+                    <div class="total_container">
+                        <span class="total" id="Player2_LifeLeft">0</span>
+                        <span class="damage_changed" id="Player2_DamageChanged"></span>
+                    </div>
                     <button class="increment" id="Player2_LifeLeft_Increment"><img src="plus.png" /></button>
                 </div>
             </div>

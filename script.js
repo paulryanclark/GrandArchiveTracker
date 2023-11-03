@@ -2,26 +2,78 @@ Array.prototype.asSelector = function() {
     return this.join('_')
 };
 
-function Player(number, damage, life, special) {
+function Player(number) {
     this.number = number;
-    this.damage = damage;
-    this.life = life;
-    this.special = special;
+    this.damage = 0;
+    this.life = 15;
+    this.special = 0;
 };
 
 Player.prototype.lifeLeftIdentifier = "LifeLeft";
 Player.prototype.lifeIdentifier = "Life";
 Player.prototype.specialIdentifier = "Special";
+Player.prototype.damageChangedIdentifier = "DamageChanged";
 Player.prototype.incrementIdentifier = "Increment";
 Player.prototype.decrementIdentifier = "Decrement";
+
+Player.prototype.damageTakenTTL = 2000;
+Player.prototype.lastDamageChangeDate = null;
+Player.prototype.anchorDamageChange = null;
+
+Player.prototype.resetDamageChange = function() {
+    this.lastDamageChangeTime = null;
+    this.anchorDamageChange = null;
+    this.applyDamageChangeToDocument();    
+};
+
+Player.prototype.reset = function() {
+    this.damage = 0;
+    this.life = 15;
+    this.special = 0;
+    this.applyToDocument();
+};
 
 Player.prototype.lifeLeft = function() {
     return this.life - this.damage;
 };
 
+Player.prototype.onDamageChangedTimerTick = function() {
+    if(this.lastDamageChangeDate !== null) {
+        // If too much time has passed since last damage change, reset damage change
+        if(Date.now() - this.lastDamageChangeDate > this.damageTakenTTL) {
+            this.resetDamageChange();
+        }
+    }
+};
+
+Player.prototype.trackDamageChange = function() {
+    if(this.anchorDamageChange === null) {
+        this.anchorDamageChange = this.damage;
+    }
+    this.lastDamageChangeDate = Date.now();
+};
+
+Player.prototype.damageChanged = function() {
+    if(this.anchorDamageChange !== null) {
+        if(this.anchorDamageChange - this.damage > 0) {
+            return "(+" + (this.anchorDamageChange - this.damage) + ")";
+        }
+        return "(" + (this.anchorDamageChange - this.damage) + ")";
+    }
+};
+
+Player.prototype.applyDamageChangeToDocument = function() {
+    const damageChangedElement = this.damageChangedElement();
+    damageChangedElement.textContent = this.damageChanged();
+};
+
 Player.prototype.attachToDocument = function() {
     this.applyToDocument();
     this.createEventListeners();
+    var self = this;
+    setInterval(function() {
+        self.onDamageChangedTimerTick();
+    }, 1000)
 };
 
 Player.prototype.applyToDocument = function() {
@@ -31,6 +83,7 @@ Player.prototype.applyToDocument = function() {
     lifeElement.textContent = this.life.toString();
     const specialElement = this.specialElement();
     specialElement.textContent = this.special.toString();
+    this.applyDamageChangeToDocument();
 };
 
 Player.prototype.createEventListeners = function() {
@@ -57,12 +110,14 @@ Player.prototype.createEventListeners = function() {
 
 Player.prototype.onLifeLeftIncrement = function() {
     if(this.damage > 0) {
+        this.trackDamageChange();
         this.damage -= 1;
         this.applyToDocument();
     }
 };
 
 Player.prototype.onLifeLeftDecrement = function() {
+    this.trackDamageChange();
     this.damage += 1;
     this.applyToDocument();
 };
@@ -141,12 +196,47 @@ Player.prototype.specialDecrementElement = function() {
     return document.querySelector(selector);
 };
 
-const player1 = new Player(1, 0, 15, 0);
-const player2 = new Player(2, 0, 15, 0);
+Player.prototype.damageChangedElement = function() {
+    const selector = [this.playerSelector(), this.damageChangedIdentifier].asSelector();
+    return document.querySelector(selector);
+};
+
+const player1 = new Player(1);
+const player2 = new Player(2);
 
 function onLoad() {
-    player1.attachToDocument()
-    player2.attachToDocument()
+    player1.attachToDocument();
+    player2.attachToDocument();
+    attachToGlobalControls();
+};
+
+function attachToGlobalControls() {
+    const resetElement = document.querySelector("#Player_Reset");
+    resetElement.addEventListener('click', function() {
+        onReset();
+    });
+
+    const resetConfirmElement = document.querySelector("#Player_Reset_Confirm");
+    resetConfirmElement.addEventListener('click', function() {
+        onResetConfirmed();
+    });
+};
+
+function onReset() {
+    const resetConfirmElement = document.querySelector("#Player_Reset_Confirm");
+    console.log(resetConfirmElement.style.display);
+    if (resetConfirmElement.style.display == "block") {
+        resetConfirmElement.style.display = "none";
+    } else {
+     resetConfirmElement.style.display = "block";
+    }
+};
+
+function onResetConfirmed() {
+    player1.reset();
+    player2.reset();
+    const resetConfirmElement = document.querySelector("#Player_Reset_Confirm");
+    resetConfirmElement.style.display = "none";
 };
 
 window.onload = function () {
