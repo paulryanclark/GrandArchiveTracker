@@ -2,6 +2,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script src="script.js"></script>
 </head>
 <style>
     button {
@@ -139,7 +140,7 @@
         top: 50%;
         right: 5%;
         -webkit-transform: translate(0%, -50%);
-        -ms-transform: translate(00%, -50%);
+        -ms-transform: translate(0%, -50%);
         transform: translate(00%, -50%);
         width: 44px;
     }
@@ -188,13 +189,13 @@
             <span class="special">
                 <button class="decrement"><img src="minus.png" /></button>
                 <span class="icon"><img src="star.png" /></span>
-                <span class="total">0</span>
+                <span class="total" id="Player1_Special">0</span>
                 <button class="increment"><img src="plus.png" /></button>
             </span>
             <span class="life">
                 <button class="decrement"><img src="minus.png" /></button>
                 <span class="icon"><img src="heart.png" /></span>
-                <span class="total">15</span>
+                <span class="total" id="Player1_Life">15</span>
                 <button class="increment"><img src="plus.png" /></button>
             </span>
         </div>
@@ -202,7 +203,7 @@
             <div class="main">
                 <div class="damage">
                     <button class="decrement"><img src="minus.png" /></button>
-                    <span class="total">0</span>
+                    <span class="total" id="Player1_Damage">0</span>
                     <button class="increment"><img src="plus.png" /></button>
                 </div>
             </div>
@@ -212,7 +213,7 @@
             <div class="main">
                 <div class="damage">
                     <button class="decrement"><img src="minus.png" /></button>
-                    <span class="total">0</span>
+                    <span class="total" id="Player2_Damage">0</span>
                     <button class="increment"><img src="plus.png" /></button>
                 </div>
             </div>
@@ -221,14 +222,14 @@
             <span class="special">
                 <button class="decrement"><img src="minus.png" /></button>
                 <span class="icon"><img src="star.png" /></span>
-                <span class="total">0</span>
+                <span class="total" id="Player2_Special">0</span>
                 <button class="increment"><img src="plus.png" /></button>
             </span>
 
             <span class="life">
                 <button class="decrement"><img src="minus.png" /></button>
                 <span class="icon"><img src="heart.png" /></span>
-                <span class="total">15</span>
+                <span class="total" id="Player2_Life">15</span>
                 <button class="increment"><img src="plus.png" /></button>
             </span>
         </div>
