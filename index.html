@@ -1,0 +1,143 @@
+<head>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+<style>
+    button {
+        touch-action: manipulation;
+        padding: 0px;
+    }
+
+    body {
+        background: black;
+    }
+
+    .flex-container {
+        display: flex;
+        flex-flow: column;
+        height: 100vh;
+    }
+
+    .accessory {
+        display: flex;
+        width: 100%;
+        background-color: gray;
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
+        justify-content: space-between;
+    }
+
+    .special,
+    .life {
+        display: flex;
+        align-items: center;
+    }
+
+    .decrement,
+    .increment {
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-size: 50pt;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .icon,
+    .total {
+        color: white;
+        font-size: 32pt;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    .main {
+        display: flex;
+    }
+
+    .damage {
+        display: flex;
+        margin: auto;
+        width: auto;
+    }
+
+    .damage .total {
+        font-size: 136pt;
+    }
+
+    .damage .increment {
+        padding-left: 30px;
+    }
+
+    #Player1 {
+        width: 100%;
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        transform: rotate(180deg);
+        flex: 1;
+    }
+
+    #Player2 {
+        flex: 2;
+    }
+
+    #Player1 .main {
+        background-color: red;
+    }
+
+    #Player2 .main {
+        background-color: blue;
+    }
+</style>
+<div class="flex-container">
+    <div class="player" id="Player1">
+        <div class="main">
+            <div class="damage">
+                <button class="decrement">-</button>
+                <span class="total">0</span>
+                <button class="increment">+</button>
+            </div>
+        </div>
+        <div class="accessory">
+            <span class="special">
+                <button class="decrement">-</button>
+                <span class="icon">&#9733;</span>
+                <span class="total">0</span>
+                <button class="increment">+</button>
+            </span>
+
+            <span class="life">
+                <button class="decrement">-</button>
+                <span class="icon">&#9829;</span>
+                <span class="total">15</span>
+                <button class="increment">+</button>
+            </span>
+        </div>
+    </div>
+    <div class="controls"></div>
+    <div class="player" id="Player2">
+        <div class="main">
+            <div class="damage">
+                <button class="decrement">-</button>
+                <span class="total">0</span>
+                <button class="increment">+</button>
+            </div>
+        </div>
+        <div class="accessory">
+            <span class="special">
+                <button class="decrement">-</button>
+                <span class="icon">&#9733;</span>
+                <span class="total">0</span>
+                <button class="increment">+</button>
+            </span>
+
+            <span class="life">
+                <button class="decrement">-</button>
+                <span class="icon">&#9829;</span>
+                <span class="total">15</span>
+                <button class="increment">+</button>
+            </span>
+        </div>
+    </div>
+</div>
