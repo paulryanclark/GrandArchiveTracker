@@ -50,6 +50,10 @@
         align-items: center;
         padding-top: 8px;
         padding-bottom: 8px;
+        position: relative;
+        border-width: 1px;
+        border-color: black;
+        border-top-style: solid;
     }
 
     .controls {
@@ -224,6 +228,35 @@
         width: 44px;
     }
 
+    .life_selector {
+        background-color: #4d4d4d;
+        border-color: black;
+        border-style:solid;
+        border-width: 1px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        position: absolute;
+        bottom: 100%;
+        padding: 10px;
+        margin-left: 10px;
+        margin-right: 4px;
+        display: none;
+    }
+
+    #Player2_Life_Selector {
+
+    }
+
+    .life_selection {
+        color: white;
+        background-color: transparent;
+        border: none;
+        font-size: 32px;
+        display: flex;
+        gap: 4px;
+    }
+
     #Player1,
     #Player1_Accessory {
         width: 100%;
@@ -297,13 +330,21 @@
             </div>
         </div>
         <div class="accessory">
+            <div class="life_selector" id="Player2_Life_Selector">
+                <button class="life_selection"><span class="icon"><img src="heart.png" /></span>15</button>
+                <button class="life_selection"><span class="icon"><img src="heart.png" /></span>19</button>
+                <button class="life_selection"><span class="icon"><img src="heart.png" /></span>20</button>
+                <button class="life_selection"><span class="icon"><img src="heart.png" /></span>22</button>
+                <button class="life_selection"><span class="icon"><img src="heart.png" /></span>24</button>
+                <button class="life_selection"><span class="icon"><img src="heart.png" /></span>25</button>
+                <button class="life_selection"><span class="icon"><img src="heart.png" /></span>28</button>
+            </div>
             <span class="special">
                 <button class="decrement" id="Player2_Special_Decrement"><img src="minus.png" /></button>
                 <span class="icon"><img src="star.png" /></span>
                 <span class="total" id="Player2_Special">0</span>
                 <button class="increment" id="Player2_Special_Increment"><img src="plus.png" /></button>
             </span>
-
             <span class="life">
                 <button class="decrement" id="Player2_Life_Decrement"><img src="minus.png" /></button>
                 <span class="icon"><img src="heart.png" /></span>
