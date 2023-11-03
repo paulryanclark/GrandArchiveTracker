@@ -10,16 +10,15 @@
     }
 
     html body {
-       overflow: hidden;
+        overflow: hidden;
     }
 
     body {
         background: black;
     }
 
-    .container {
-        
-    }
+    .container {}
+
     .flex-container {
         display: flex;
         flex-flow: column;
@@ -57,24 +56,24 @@
         padding-right: 18px;
     }
 
-    .decrement img {
-        position:absolute;
+    .accessory .decrement img {
+        position: absolute;
         top: 50%;
-        left:50%;
+        left: 50%;
         -webkit-transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
-        width:44px;
+        width: 44px;
     }
 
-    .increment img {
-        position:absolute;
+    .accessory .increment img {
+        position: absolute;
         top: 50%;
-        left:50%;
+        left: 50%;
         -webkit-transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
-        width:44px;
+        width: 44px;
     }
 
     .decrement,
@@ -82,9 +81,27 @@
         background-color: transparent;
         border: none;
         color: white;
-        position:relative;
-        width:44px;
-        height:44px;
+        position: relative;
+
+    }
+
+    .accessory .decrement,
+    .accessory .increment {
+        width: 44px;
+        height: 44px;
+    }
+
+    .damage .decrement {
+        flex: 1;
+        min-width: 100px;
+        min-height: 100px;
+        margin-right: -10px;
+    }
+
+    .damage .increment {
+        flex: 1;
+        min-width: 100px;
+        min-height: 100px;
     }
 
     .icon,
@@ -94,25 +111,47 @@
         font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
 
-    .icon img, .total img {
+    .icon img,
+    .total img {
         height: 50px;
         width: 50px;
     }
 
     .main {
         display: flex;
+        justify-content: center;
+        width: 100%
     }
 
     .damage {
+        width: 100%;
         display: flex;
         align-items: center;
         gap: 8px;
-        margin: auto;
-        width: auto;
     }
 
     .damage .total {
         font-size: 136pt;
+    }
+
+    .damage .decrement img {
+        position: absolute;
+        top: 50%;
+        right: 5%;
+        -webkit-transform: translate(0%, -50%);
+        -ms-transform: translate(00%, -50%);
+        transform: translate(00%, -50%);
+        width: 44px;
+    }
+
+    .damage .increment img {
+        position: absolute;
+        top: 50%;
+        left: 5%;
+        -webkit-transform: translate(0%, -50%);
+        -ms-transform: translate(0%, -50%);
+        transform: translate(0%, -50%);
+        width: 44px;
     }
 
     #Player1,
@@ -147,24 +186,24 @@
         <div class="veritical-spacer"></div>
         <div class="accessory" id="Player1_Accessory">
             <span class="special">
-                <button class="decrement"><img src="minus.png"/></button>
-                <span class="icon"><img src="star.png"/></span>
+                <button class="decrement"><img src="minus.png" /></button>
+                <span class="icon"><img src="star.png" /></span>
                 <span class="total">0</span>
-                <button class="increment"><img src="plus.png"/></button>
+                <button class="increment"><img src="plus.png" /></button>
             </span>
             <span class="life">
-                <button class="decrement"><img src="minus.png"/></button>
-                <span class="icon"><img src="heart.png"/></span>
+                <button class="decrement"><img src="minus.png" /></button>
+                <span class="icon"><img src="heart.png" /></span>
                 <span class="total">15</span>
-                <button class="increment"><img src="plus.png"/></button>
+                <button class="increment"><img src="plus.png" /></button>
             </span>
         </div>
         <div class="player" id="Player1">
             <div class="main">
                 <div class="damage">
-                    <button class="decrement"><img src="minus.png"/></button>
+                    <button class="decrement"><img src="minus.png" /></button>
                     <span class="total">0</span>
-                    <button class="increment"><img src="plus.png"/></button>
+                    <button class="increment"><img src="plus.png" /></button>
                 </div>
             </div>
         </div>
@@ -172,25 +211,25 @@
         <div class="player" id="Player2">
             <div class="main">
                 <div class="damage">
-                    <button class="decrement"><img src="minus.png"/></button>
+                    <button class="decrement"><img src="minus.png" /></button>
                     <span class="total">0</span>
-                    <button class="increment"><img src="plus.png"/></button>
+                    <button class="increment"><img src="plus.png" /></button>
                 </div>
             </div>
         </div>
         <div class="accessory">
             <span class="special">
-                <button class="decrement"><img src="minus.png"/></button>
-                <span class="icon"><img src="star.png"/></span>
+                <button class="decrement"><img src="minus.png" /></button>
+                <span class="icon"><img src="star.png" /></span>
                 <span class="total">0</span>
-                <button class="increment"><img src="plus.png"/></button>
+                <button class="increment"><img src="plus.png" /></button>
             </span>
 
             <span class="life">
-                <button class="decrement"><img src="minus.png"/></button>
-                <span class="icon"><img src="heart.png"/></span>
+                <button class="decrement"><img src="minus.png" /></button>
+                <span class="icon"><img src="heart.png" /></span>
                 <span class="total">15</span>
-                <button class="increment"><img src="plus.png"/></button>
+                <button class="increment"><img src="plus.png" /></button>
             </span>
         </div>
         <div class="veritical-spacer"></div>
