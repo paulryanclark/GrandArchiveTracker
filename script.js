@@ -4,9 +4,17 @@ Array.prototype.asSelector = function() {
 
 function Player(number) {
     this.number = number;
-    this.damage = 0;
-    this.life = 15;
-    this.special = 0;
+    const stateJSON = localStorage.getItem("Player"+number);
+    if(stateJSON) {
+        const state = JSON.parse(stateJSON);
+        this.damage = state.damage ? state.damage : 0;
+        this.life = state.life ? state.life : 15;
+        this.special = state.special ? state.special : 0;
+    } else {
+        this.damage = 0;
+        this.life = 15;
+        this.special = 0;
+    }
 };
 
 Player.prototype.lifeLeftIdentifier = "LifeLeft";
@@ -71,6 +79,15 @@ Player.prototype.applyDamageChangeToDocument = function() {
     damageChangedElement.textContent = this.damageChanged();
 };
 
+Player.prototype.storeStateToLocalStorage = function() {
+    const state = {
+        damage: this.damage,
+        life: this.life,
+        special: this.special
+    };
+    localStorage.setItem("Player"+this.number, JSON.stringify(state));
+};
+
 Player.prototype.attachToDocument = function() {
     this.applyToDocument();
     this.createEventListeners();
@@ -90,6 +107,7 @@ Player.prototype.applyToDocument = function() {
     const damageElement = this.damageElement();
     damageElement.textContent = this.damage.toString();
     this.applyDamageChangeToDocument();
+    this.storeStateToLocalStorage();
 };
 
 Player.prototype.createEventListeners = function() {
@@ -115,8 +133,6 @@ Player.prototype.createEventListeners = function() {
     this.lifeSelectorElement().addEventListener('click', function() {
         self.onLifeSelector();
     });
-
-    console.log(this.lifeSelectionElements());
 
     this.lifeSelectionElements().forEach((element) => {
         element.addEventListener('click', function() {
@@ -156,7 +172,6 @@ Player.prototype.onLifeDecrement = function() {
 
 Player.prototype.onLifeSelector = function() {
     const lifeSelectionContainerElement = this.lifeSelectionContainerElement();
-    console.log(lifeSelectionContainerElement)
     if (lifeSelectionContainerElement.style.display == "flex") {
         lifeSelectionContainerElement.style.display = "none";
     } else {
@@ -184,7 +199,6 @@ Player.prototype.playerSelector = function() {
 
 Player.prototype.lifeLeftElement = function() {
     const selector = [this.playerSelector(), this.lifeLeftIdentifier].asSelector();
-    console.log(selector)
     return document.querySelector(selector);
 };
 
@@ -277,7 +291,6 @@ function attachToGlobalControls() {
 
 function onReset() {
     const resetConfirmElement = document.querySelector("#Player_Reset_Confirm");
-    console.log(resetConfirmElement.style.display);
     if (resetConfirmElement.style.display == "block") {
         resetConfirmElement.style.display = "none";
     } else {
