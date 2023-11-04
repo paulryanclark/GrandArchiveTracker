@@ -12,6 +12,7 @@ function Player(number) {
 Player.prototype.lifeLeftIdentifier = "LifeLeft";
 Player.prototype.lifeIdentifier = "Life";
 Player.prototype.specialIdentifier = "Special";
+Player.prototype.damageIdentifier = "Damage";
 Player.prototype.damageChangedIdentifier = "DamageChanged";
 Player.prototype.incrementIdentifier = "Increment";
 Player.prototype.decrementIdentifier = "Decrement";
@@ -85,6 +86,8 @@ Player.prototype.applyToDocument = function() {
     lifeElement.textContent = this.life.toString();
     const specialElement = this.specialElement();
     specialElement.textContent = this.special.toString();
+    const damageElement = this.damageElement();
+    damageElement.textContent = this.damage.toString();
     this.applyDamageChangeToDocument();
 };
 
@@ -242,6 +245,11 @@ Player.prototype.specialDecrementElement = function() {
 
 Player.prototype.damageChangedElement = function() {
     const selector = [this.playerSelector(), this.damageChangedIdentifier].asSelector();
+    return document.querySelector(selector);
+};
+
+Player.prototype.damageElement = function() {
+    const selector = [this.playerSelector(), this.damageIdentifier].asSelector();
     return document.querySelector(selector);
 };
 
