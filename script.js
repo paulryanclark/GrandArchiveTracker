@@ -108,6 +108,7 @@ Player.prototype.applyToDocument = function() {
     damageElement.textContent = this.damage.toString();
     this.applyDamageChangeToDocument();
     this.storeStateToLocalStorage();
+    this.setLifeSelectionStyle();
 };
 
 Player.prototype.createEventListeners = function() {
@@ -179,7 +180,16 @@ Player.prototype.onLifeSelector = function() {
     }
 };
 
-
+Player.prototype.setLifeSelectionStyle = function() {
+    this.lifeSelectionElements().forEach((element) => {
+        const elementLife = Number(element.dataset.life);
+        if(elementLife == this.life) {
+            element.style["text-decoration"] = "underline";
+        } else {
+            element.style["text-decoration"] = null;
+        }
+    });
+};
 
 Player.prototype.onSpecialIncrement = function() {
     this.special += 1;
