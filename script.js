@@ -30,6 +30,7 @@ Player.prototype.resetDamageChange = function() {
 };
 
 Player.prototype.reset = function() {
+    self.resetDamageChange();
     this.damage = 0;
     this.life = 15;
     this.special = 0;
