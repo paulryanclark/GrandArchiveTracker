@@ -15,6 +15,8 @@ Player.prototype.specialIdentifier = "Special";
 Player.prototype.damageChangedIdentifier = "DamageChanged";
 Player.prototype.incrementIdentifier = "Increment";
 Player.prototype.decrementIdentifier = "Decrement";
+Player.prototype.selectorIdentifier = "Selector";
+Player.prototype.selectionContainerIdentifier = "Selection_Container";
 
 Player.prototype.damageTakenTTL = 2000;
 Player.prototype.lastDamageChangeDate = null;
@@ -106,6 +108,20 @@ Player.prototype.createEventListeners = function() {
     this.specialIncrementElement().addEventListener('click', function() {
         self.onSpecialIncrement();
     });
+    this.lifeSelectorElement().addEventListener('click', function() {
+        self.onLifeSelector();
+    });
+
+    console.log(this.lifeSelectionElements());
+
+    this.lifeSelectionElements().forEach((element) => {
+        element.addEventListener('click', function() {
+            self.life = Number(element.dataset.life);
+            self.applyToDocument();
+            const lifeSelectionContainerElement = self.lifeSelectionContainerElement();
+            lifeSelectionContainerElement.style.display = "none";
+        });
+    });
 };
 
 Player.prototype.onLifeLeftIncrement = function() {
@@ -133,6 +149,18 @@ Player.prototype.onLifeDecrement = function() {
         this.applyToDocument();
     }
 };
+
+Player.prototype.onLifeSelector = function() {
+    const lifeSelectionContainerElement = this.lifeSelectionContainerElement();
+    console.log(lifeSelectionContainerElement)
+    if (lifeSelectionContainerElement.style.display == "flex") {
+        lifeSelectionContainerElement.style.display = "none";
+    } else {
+        lifeSelectionContainerElement.style.display = "flex";
+    }
+};
+
+
 
 Player.prototype.onSpecialIncrement = function() {
     this.special += 1;
@@ -179,6 +207,22 @@ Player.prototype.lifeIncrementElement = function() {
 Player.prototype.lifeDecrementElement = function() {
     const selector = [this.playerSelector(), this.lifeIdentifier, this.decrementIdentifier].asSelector();
     return document.querySelector(selector);
+};
+
+Player.prototype.lifeSelectorElement = function() {
+    const selector = [this.playerSelector(), this.lifeIdentifier, this.selectorIdentifier].asSelector();
+    return document.querySelector(selector);
+}; 
+
+Player.prototype.lifeSelectionContainerElement = function() {
+    const selector = [this.playerSelector(), this.lifeIdentifier, this.selectionContainerIdentifier].asSelector();
+    return document.querySelector(selector);
+}; 
+
+Player.prototype.lifeSelectionElements = function() {
+    const lifeSelectionContainerSelector = [this.playerSelector(), this.lifeIdentifier, this.selectionContainerIdentifier].asSelector();
+    const lifeSelectionsSelector = lifeSelectionContainerSelector + " .life_selection";
+    return document.querySelectorAll(lifeSelectionsSelector)
 };
 
 Player.prototype.specialElement = function() {

@@ -10,9 +10,14 @@
     <title>GA Tracker</title>
 </head>
 <style>
-    button {
+    * {
         touch-action: manipulation;
+    }
+
+    button {
         padding: 0px;
+        background-color: transparent;
+        border: none;
     }
 
     html body {
@@ -152,7 +157,6 @@
         z-index: 1;
     }
 
-    .icon,
     .total {
         color: white;
         font-size: 24pt;
@@ -228,7 +232,7 @@
         width: 44px;
     }
 
-    .life_selector {
+    .life_selection_container {
         background-color: #4d4d4d;
         border-color: black;
         border-style:solid;
@@ -242,6 +246,7 @@
         margin-left: 10px;
         margin-right: 4px;
         display: none;
+        z-index: 10;
     }
 
     #Player2_Life_Selector {
@@ -296,7 +301,7 @@
             </span>
             <span class="life">
                 <button class="decrement" id="Player1_Life_Decrement"><img src="minus.png" /></button>
-                <span class="icon"><img src="heart.png" /></span>
+                <button class="life_selector" id="Player1_Life_Selector"><span class="icon"><img src="heart.png" /></span></button>
                 <span class="total" id="Player1_Life">15</span>
                 <button class="increment" id="Player1_Life_Increment"><img src="plus.png" /></button>
             </span>
@@ -330,14 +335,14 @@
             </div>
         </div>
         <div class="accessory">
-            <div class="life_selector" id="Player2_Life_Selector">
-                <button class="life_selection"><span class="icon"><img src="heart.png" /></span>15</button>
-                <button class="life_selection"><span class="icon"><img src="heart.png" /></span>19</button>
-                <button class="life_selection"><span class="icon"><img src="heart.png" /></span>20</button>
-                <button class="life_selection"><span class="icon"><img src="heart.png" /></span>22</button>
-                <button class="life_selection"><span class="icon"><img src="heart.png" /></span>24</button>
-                <button class="life_selection"><span class="icon"><img src="heart.png" /></span>25</button>
-                <button class="life_selection"><span class="icon"><img src="heart.png" /></span>28</button>
+            <div class="life_selection_container" id="Player2_Life_Selection_Container">
+                <button class="life_selection" data-life="15"><span class="icon"><img src="heart.png" /></span>15</button>
+                <button class="life_selection" data-life="19"><span class="icon"><img src="heart.png" /></span>19</button>
+                <button class="life_selection" data-life="20"><span class="icon"><img src="heart.png" /></span>20</button>
+                <button class="life_selection" data-life="22"><span class="icon"><img src="heart.png" /></span>22</button>
+                <button class="life_selection" data-life="24"><span class="icon"><img src="heart.png" /></span>24</button>
+                <button class="life_selection" data-life="25"><span class="icon"><img src="heart.png" /></span>25</button>
+                <button class="life_selection" data-life="28"><span class="icon"><img src="heart.png" /></span>28</button>
             </div>
             <span class="special">
                 <button class="decrement" id="Player2_Special_Decrement"><img src="minus.png" /></button>
@@ -347,8 +352,10 @@
             </span>
             <span class="life">
                 <button class="decrement" id="Player2_Life_Decrement"><img src="minus.png" /></button>
-                <span class="icon"><img src="heart.png" /></span>
-                <span class="total" id="Player2_Life">15</span>
+                <button class="life_selector" id="Player2_Life_Selector">
+                    <span class="icon"><img src="heart.png" /></span>
+                    <span class="total" id="Player2_Life">15</span>
+                </button>
                 <button class="increment" id="Player2_Life_Increment"><img src="plus.png" /></button>
             </span>
         </div>
