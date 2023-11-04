@@ -30,8 +30,6 @@
         background: black;
     }
 
-    .container {}
-
     .flex-container {
         display: flex;
         flex-flow: column;
@@ -54,7 +52,7 @@
         justify-content: space-between;
         align-items: center;
         padding-top: 8px;
-        padding-bottom: 8px;
+        padding-bottom: 4px;
         position: relative;
         border-width: 1px;
         border-color: black;
@@ -279,6 +277,20 @@
         color: white;
     }
 
+    .life_selector {
+        position: relative;
+    }
+
+    .selector_hint {
+        position: absolute;
+        bottom: 100%;
+        width: 100%;
+    }
+
+    .selector_hint img {
+        width: 16px;
+    }
+
     #Player1,
     #Player1_Accessory {
         width: 100%;
@@ -419,6 +431,7 @@
             <span class="life">
                 <button class="decrement" id="Player2_Life_Decrement"><img src="minus.png" /></button>
                 <button class="life_selector" id="Player2_Life_Selector">
+                    <span class="selector_hint"><img src="chevron-compact-up.png"></span>
                     <span class="icon"><img src="heart.png" /></span>
                     <span class="total" id="Player2_Life">15</span>
                 </button>
