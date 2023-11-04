@@ -319,20 +319,4 @@ window.onload = function () {
     onLoad();
 };
 
-document.addEventListener('DOMContentLoaded', function () {
-
-    window.AddToHomeScreenInstance = new window.AddToHomeScreen(
-        {
-            appName: 'GA Tracker',                                   // Name of the app
-            appIconUrl: 'apple-touch-icon.png',                       // App icon link (square, at least 40 x 40 pixels)
-            assetUrl: 'https://cdn.jsdelivr.net/gh/philfung/add-to-homescreen@1.4/dist/assets/img/',  // Link to directory of library image assets 
-            showErrorMessageForUnsupportedBrowsers: false,          // Should we prompt users on non-compliant browsers (like IOS Firefox) to switch to compliant one (like Safari) Default: true.
-            allowUserToCloseModal: true,                           // Allow user to close the 'Add to Homescreen' message? Not allowing will increase installs. Default: false.
-            maxModalDisplayCount: 1                               // If set, the modal will only show this many times.
-        }
-    );
-
-    ret = window.AddToHomeScreenInstance.show();             // show "add-to-homescreen" instructions to user, or do nothing if already added to homescreen
-});
-
 
