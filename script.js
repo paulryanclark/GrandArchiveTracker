@@ -1,11 +1,11 @@
-Array.prototype.asSelector = function() {
+Array.prototype.asSelector = function () {
     return this.join('_')
 };
 
 function Player(number) {
     this.number = number;
-    const stateJSON = localStorage.getItem("Player"+number);
-    if(stateJSON) {
+    const stateJSON = localStorage.getItem("Player" + number);
+    if (stateJSON) {
         const state = JSON.parse(stateJSON);
         this.damage = state.damage ? state.damage : 0;
         this.life = state.life ? state.life : 15;
@@ -31,13 +31,13 @@ Player.prototype.damageTakenTTL = 2000;
 Player.prototype.lastDamageChangeDate = null;
 Player.prototype.anchorDamageChange = null;
 
-Player.prototype.resetDamageChange = function() {
+Player.prototype.resetDamageChange = function () {
     this.lastDamageChangeTime = null;
     this.anchorDamageChange = null;
-    this.applyDamageChangeToDocument();    
+    this.applyDamageChangeToDocument();
 };
 
-Player.prototype.reset = function() {
+Player.prototype.reset = function () {
     this.resetDamageChange();
     this.damage = 0;
     this.life = 15;
@@ -45,59 +45,59 @@ Player.prototype.reset = function() {
     this.applyToDocument();
 };
 
-Player.prototype.lifeLeft = function() {
+Player.prototype.lifeLeft = function () {
     return this.life - this.damage;
 };
 
-Player.prototype.onDamageChangedTimerTick = function() {
-    if(this.lastDamageChangeDate !== null) {
+Player.prototype.onDamageChangedTimerTick = function () {
+    if (this.lastDamageChangeDate !== null) {
         // If too much time has passed since last damage change, reset damage change
-        if(Date.now() - this.lastDamageChangeDate > this.damageTakenTTL) {
+        if (Date.now() - this.lastDamageChangeDate > this.damageTakenTTL) {
             this.resetDamageChange();
         }
     }
 };
 
-Player.prototype.trackDamageChange = function() {
-    if(this.anchorDamageChange === null) {
+Player.prototype.trackDamageChange = function () {
+    if (this.anchorDamageChange === null) {
         this.anchorDamageChange = this.damage;
     }
     this.lastDamageChangeDate = Date.now();
 };
 
-Player.prototype.damageChanged = function() {
-    if(this.anchorDamageChange !== null) {
-        if(this.anchorDamageChange - this.damage > 0) {
+Player.prototype.damageChanged = function () {
+    if (this.anchorDamageChange !== null) {
+        if (this.anchorDamageChange - this.damage > 0) {
             return "(+" + (this.anchorDamageChange - this.damage) + ")";
         }
         return "(" + (this.anchorDamageChange - this.damage) + ")";
     }
 };
 
-Player.prototype.applyDamageChangeToDocument = function() {
+Player.prototype.applyDamageChangeToDocument = function () {
     const damageChangedElement = this.damageChangedElement();
     damageChangedElement.textContent = this.damageChanged();
 };
 
-Player.prototype.storeStateToLocalStorage = function() {
+Player.prototype.storeStateToLocalStorage = function () {
     const state = {
         damage: this.damage,
         life: this.life,
         special: this.special
     };
-    localStorage.setItem("Player"+this.number, JSON.stringify(state));
+    localStorage.setItem("Player" + this.number, JSON.stringify(state));
 };
 
-Player.prototype.attachToDocument = function() {
+Player.prototype.attachToDocument = function () {
     this.applyToDocument();
     this.createEventListeners();
     var self = this;
-    setInterval(function() {
+    setInterval(function () {
         self.onDamageChangedTimerTick();
     }, 1000)
 };
 
-Player.prototype.applyToDocument = function() {
+Player.prototype.applyToDocument = function () {
     const lifeLeftElement = this.lifeLeftElement();
     lifeLeftElement.textContent = this.lifeLeft().toString();
     const lifeElement = this.lifeElement();
@@ -111,32 +111,32 @@ Player.prototype.applyToDocument = function() {
     this.setLifeSelectionStyle();
 };
 
-Player.prototype.createEventListeners = function() {
+Player.prototype.createEventListeners = function () {
     var self = this;
-    this.lifeLeftIncrementElement().addEventListener('click', function() {
+    this.lifeLeftIncrementElement().addEventListener('click', function () {
         self.onLifeLeftIncrement();
     });
-    this.lifeLeftDecrementElement().addEventListener('click', function() {
+    this.lifeLeftDecrementElement().addEventListener('click', function () {
         self.onLifeLeftDecrement();
     });
-    this.lifeDecrementElement().addEventListener('click', function() {
+    this.lifeDecrementElement().addEventListener('click', function () {
         self.onLifeDecrement();
     });
-    this.lifeIncrementElement().addEventListener('click', function() {
+    this.lifeIncrementElement().addEventListener('click', function () {
         self.onLifeIncrement();
     });
-    this.specialDecrementElement().addEventListener('click', function() { 
+    this.specialDecrementElement().addEventListener('click', function () {
         self.onSpecialDecrement();
     });
-    this.specialIncrementElement().addEventListener('click', function() {
+    this.specialIncrementElement().addEventListener('click', function () {
         self.onSpecialIncrement();
     });
-    this.lifeSelectorElement().addEventListener('click', function() {
+    this.lifeSelectorElement().addEventListener('click', function () {
         self.onLifeSelector();
     });
 
     this.lifeSelectionElements().forEach((element) => {
-        element.addEventListener('click', function() {
+        element.addEventListener('click', function () {
             self.life = Number(element.dataset.life);
             self.applyToDocument();
             const lifeSelectionContainerElement = self.lifeSelectionContainerElement();
@@ -145,33 +145,33 @@ Player.prototype.createEventListeners = function() {
     });
 };
 
-Player.prototype.onLifeLeftIncrement = function() {
-    if(this.damage > 0) {
+Player.prototype.onLifeLeftIncrement = function () {
+    if (this.damage > 0) {
         this.trackDamageChange();
         this.damage -= 1;
         this.applyToDocument();
     }
 };
 
-Player.prototype.onLifeLeftDecrement = function() {
+Player.prototype.onLifeLeftDecrement = function () {
     this.trackDamageChange();
     this.damage += 1;
     this.applyToDocument();
 };
 
-Player.prototype.onLifeIncrement = function() {
+Player.prototype.onLifeIncrement = function () {
     this.life += 1;
     this.applyToDocument();
 };
 
-Player.prototype.onLifeDecrement = function() {
-    if(this.life > 0) {
+Player.prototype.onLifeDecrement = function () {
+    if (this.life > 0) {
         this.life -= 1;
         this.applyToDocument();
     }
 };
 
-Player.prototype.onLifeSelector = function() {
+Player.prototype.onLifeSelector = function () {
     const lifeSelectionContainerElement = this.lifeSelectionContainerElement();
     if (lifeSelectionContainerElement.style.display == "flex") {
         lifeSelectionContainerElement.style.display = "none";
@@ -180,10 +180,10 @@ Player.prototype.onLifeSelector = function() {
     }
 };
 
-Player.prototype.setLifeSelectionStyle = function() {
+Player.prototype.setLifeSelectionStyle = function () {
     this.lifeSelectionElements().forEach((element) => {
         const elementLife = Number(element.dataset.life);
-        if(elementLife == this.life) {
+        if (elementLife == this.life) {
             element.style["text-decoration"] = "underline";
         } else {
             element.style["text-decoration"] = null;
@@ -191,89 +191,89 @@ Player.prototype.setLifeSelectionStyle = function() {
     });
 };
 
-Player.prototype.onSpecialIncrement = function() {
+Player.prototype.onSpecialIncrement = function () {
     this.special += 1;
     this.applyToDocument();
 };
 
-Player.prototype.onSpecialDecrement = function() {
-    if(this.special > 0) {
+Player.prototype.onSpecialDecrement = function () {
+    if (this.special > 0) {
         this.special -= 1;
         this.applyToDocument();
     }
 };
 
-Player.prototype.playerSelector = function() {
+Player.prototype.playerSelector = function () {
     return "#Player" + this.number;
 };
 
-Player.prototype.lifeLeftElement = function() {
+Player.prototype.lifeLeftElement = function () {
     const selector = [this.playerSelector(), this.lifeLeftIdentifier].asSelector();
     return document.querySelector(selector);
 };
 
-Player.prototype.lifeLeftIncrementElement = function() {
+Player.prototype.lifeLeftIncrementElement = function () {
     const selector = [this.playerSelector(), this.lifeLeftIdentifier, this.incrementIdentifier].asSelector();
     return document.querySelector(selector);
 };
 
-Player.prototype.lifeLeftDecrementElement = function() {
+Player.prototype.lifeLeftDecrementElement = function () {
     const selector = [this.playerSelector(), this.lifeLeftIdentifier, this.decrementIdentifier].asSelector();
     return document.querySelector(selector);
 };
 
-Player.prototype.lifeElement = function() {
+Player.prototype.lifeElement = function () {
     const selector = [this.playerSelector(), this.lifeIdentifier].asSelector();
     return document.querySelector(selector);
 };
 
-Player.prototype.lifeIncrementElement = function() {
+Player.prototype.lifeIncrementElement = function () {
     const selector = [this.playerSelector(), this.lifeIdentifier, this.incrementIdentifier].asSelector();
     return document.querySelector(selector);
 };
 
-Player.prototype.lifeDecrementElement = function() {
+Player.prototype.lifeDecrementElement = function () {
     const selector = [this.playerSelector(), this.lifeIdentifier, this.decrementIdentifier].asSelector();
     return document.querySelector(selector);
 };
 
-Player.prototype.lifeSelectorElement = function() {
+Player.prototype.lifeSelectorElement = function () {
     const selector = [this.playerSelector(), this.lifeIdentifier, this.selectorIdentifier].asSelector();
     return document.querySelector(selector);
-}; 
+};
 
-Player.prototype.lifeSelectionContainerElement = function() {
+Player.prototype.lifeSelectionContainerElement = function () {
     const selector = [this.playerSelector(), this.lifeIdentifier, this.selectionContainerIdentifier].asSelector();
     return document.querySelector(selector);
-}; 
+};
 
-Player.prototype.lifeSelectionElements = function() {
+Player.prototype.lifeSelectionElements = function () {
     const lifeSelectionContainerSelector = [this.playerSelector(), this.lifeIdentifier, this.selectionContainerIdentifier].asSelector();
     const lifeSelectionsSelector = lifeSelectionContainerSelector + " .life_selection";
     return document.querySelectorAll(lifeSelectionsSelector)
 };
 
-Player.prototype.specialElement = function() {
+Player.prototype.specialElement = function () {
     const selector = [this.playerSelector(), this.specialIdentifier].asSelector();
     return document.querySelector(selector);
 };
 
-Player.prototype.specialIncrementElement = function() {
+Player.prototype.specialIncrementElement = function () {
     const selector = [this.playerSelector(), this.specialIdentifier, this.incrementIdentifier].asSelector();
     return document.querySelector(selector);
 };
 
-Player.prototype.specialDecrementElement = function() {
+Player.prototype.specialDecrementElement = function () {
     const selector = [this.playerSelector(), this.specialIdentifier, this.decrementIdentifier].asSelector();
     return document.querySelector(selector);
 };
 
-Player.prototype.damageChangedElement = function() {
+Player.prototype.damageChangedElement = function () {
     const selector = [this.playerSelector(), this.damageChangedIdentifier].asSelector();
     return document.querySelector(selector);
 };
 
-Player.prototype.damageElement = function() {
+Player.prototype.damageElement = function () {
     const selector = [this.playerSelector(), this.damageIdentifier].asSelector();
     return document.querySelector(selector);
 };
@@ -289,12 +289,12 @@ function onLoad() {
 
 function attachToGlobalControls() {
     const resetElement = document.querySelector("#Player_Reset");
-    resetElement.addEventListener('click', function() {
+    resetElement.addEventListener('click', function () {
         onReset();
     });
 
     const resetConfirmElement = document.querySelector("#Player_Reset_Confirm");
-    resetConfirmElement.addEventListener('click', function() {
+    resetConfirmElement.addEventListener('click', function () {
         onResetConfirmed();
     });
 };
@@ -304,7 +304,7 @@ function onReset() {
     if (resetConfirmElement.style.display == "block") {
         resetConfirmElement.style.display = "none";
     } else {
-     resetConfirmElement.style.display = "block";
+        resetConfirmElement.style.display = "block";
     }
 };
 
@@ -318,5 +318,21 @@ function onResetConfirmed() {
 window.onload = function () {
     onLoad();
 };
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    window.AddToHomeScreenInstance = new window.AddToHomeScreen(
+        {
+            appName: 'GA Tracker',                                   // Name of the app
+            appIconUrl: 'apple-touch-icon.png',                       // App icon link (square, at least 40 x 40 pixels)
+            assetUrl: 'https://cdn.jsdelivr.net/gh/philfung/add-to-homescreen@1.4/dist/assets/img/',  // Link to directory of library image assets 
+            showErrorMessageForUnsupportedBrowsers: false,          // Should we prompt users on non-compliant browsers (like IOS Firefox) to switch to compliant one (like Safari) Default: true.
+            allowUserToCloseModal: true,                           // Allow user to close the 'Add to Homescreen' message? Not allowing will increase installs. Default: false.
+            maxModalDisplayCount: 1                               // If set, the modal will only show this many times.
+        }
+    );
+
+    ret = window.AddToHomeScreenInstance.show();             // show "add-to-homescreen" instructions to user, or do nothing if already added to homescreen
+});
 
 
