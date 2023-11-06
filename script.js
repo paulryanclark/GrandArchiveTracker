@@ -319,4 +319,29 @@ window.onload = function () {
     onLoad();
 };
 
+if ('wakeLock' in navigator) {
+    // create a reference for the wake lock
+    let wakeLock = null;
+
+    // create an async function to request a wake lock
+    const requestWakeLock = async () => {
+        try {
+            wakeLock = await navigator.wakeLock.request('screen');
+            console.log("Screen Lock aquired")
+        } catch (err) {
+            console.log(err)
+        }
+    } // requestWakeLock()
+
+    const handleVisibilityChange = () => {
+        if (wakeLock !== null && document.visibilityState === 'visible') {
+            requestWakeLock();
+        }
+    }
+    requestWakeLock();
+} else {
+    console.log("Screen lock not supported")
+}
+
+
 
