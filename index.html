@@ -80,6 +80,17 @@
         width: 44px;
     }
 
+    .screen-lock {
+        height: 44px;
+        width: 44px;
+        position: absolute;
+        left: 5%;
+    }
+
+    .screen-lock img {
+        height: 44px;
+    }
+
     .reset_confirm {
         position: absolute;
         right: 0;
@@ -379,6 +390,7 @@
             </div>
         </div>
         <div class="controls">
+            <button class="screen-lock" id="Screen_Lock"><img id="Screen_Lock_Image" src="lock-open.png" /></button>
             <button class="reset" id="Player_Reset"><img src="circle-slash.png" /></button>
             <button class="reset_confirm" id="Player_Reset_Confirm">Reset?</button>
         </div>

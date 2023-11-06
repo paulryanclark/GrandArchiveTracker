@@ -281,12 +281,6 @@ Player.prototype.damageElement = function () {
 const player1 = new Player(1);
 const player2 = new Player(2);
 
-function onLoad() {
-    player1.attachToDocument();
-    player2.attachToDocument();
-    attachToGlobalControls();
-};
-
 function attachToGlobalControls() {
     const resetElement = document.querySelector("#Player_Reset");
     resetElement.addEventListener('click', function () {
@@ -315,33 +309,66 @@ function onResetConfirmed() {
     resetConfirmElement.style.display = "none";
 };
 
+function onLoad() {
+    player1.attachToDocument();
+    player2.attachToDocument();
+    attachToGlobalControls();
+    intiailizeWakeLock();
+};
+
+function intiailizeWakeLock() {
+    const screenLockButtonElement = document.querySelector("#Screen_Lock");
+    screenLockButtonElement.dataset.status = "off";
+    const screenLockImageElement = document.querySelector("#Screen_Lock_Image");
+
+    if ('wakeLock' in navigator) {
+        screenLockButtonElement.style.display = "inline";
+        // create a reference for the wake lock
+        let wakeLock = null;
+
+        // create an async function to request a wake lock
+        const requestWakeLock = async () => {
+            try {
+                wakeLock = await navigator.wakeLock.request('screen');
+                console.log("Screen Lock aquired");
+                screenLockImageElement.src = "lock-closed.png"
+                screenLockButtonElement.dataset.status = "on";
+            } catch (err) {
+                screenLockButtonElement.dataset.status = 'off';
+                screenLockImageElement.src = "lock-open.png"
+                console.log(err);
+            }
+        } // requestWakeLock()
+
+        const handleVisibilityChange = () => {
+            if (wakeLock !== null && document.visibilityState === 'visible') {
+                requestWakeLock();
+            }
+        };
+
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+
+        screenLockButtonElement.addEventListener('click', function () {
+            // if wakelock is off request it
+            if (screenLockButtonElement.dataset.status === 'off') {
+                requestWakeLock()
+            } else { // if it's on release it
+                wakeLock.release().then(() => {
+                    console.log("Screen Lock released");
+                    screenLockButtonElement.dataset.status = 'off';
+                    screenLockImageElement.src = "lock-open.png"
+                     wakeLock = null;
+                });
+            }
+        });
+    } else {
+        screenLockButtonElement.style.display = "none";
+        console.log("Screen lock not supported")
+    }
+};
+
 window.onload = function () {
     onLoad();
 };
-
-if ('wakeLock' in navigator) {
-    // create a reference for the wake lock
-    let wakeLock = null;
-
-    // create an async function to request a wake lock
-    const requestWakeLock = async () => {
-        try {
-            wakeLock = await navigator.wakeLock.request('screen');
-            console.log("Screen Lock aquired")
-        } catch (err) {
-            console.log(err)
-        }
-    } // requestWakeLock()
-
-    const handleVisibilityChange = () => {
-        if (wakeLock !== null && document.visibilityState === 'visible') {
-            requestWakeLock();
-        }
-    }
-    requestWakeLock();
-} else {
-    console.log("Screen lock not supported")
-}
-
 
 
