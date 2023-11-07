@@ -1,3 +1,5 @@
+import { NoSleep } from "./nosleep.js";
+
 Array.prototype.asSelector = function () {
     return this.join('_')
 };
@@ -348,55 +350,24 @@ function initializeCloseSelectionContainersOnOutsideTap() {
     }, true);
 }
 
+const noSleep = new NoSleep();
+
 function initiailizeWakeLock() {
     const screenLockButtonElement = document.querySelector("#Screen_Lock");
     screenLockButtonElement.dataset.status = "off";
     const screenLockImageElement = document.querySelector("#Screen_Lock_Image");
 
-    if ('wakeLock' in navigator) {
-        screenLockButtonElement.style.display = "inline";
-        // create a reference for the wake lock
-        let wakeLock = null;
-
-        // create an async function to request a wake lock
-        const requestWakeLock = async () => {
-            try {
-                wakeLock = await navigator.wakeLock.request('screen');
-                console.log("Screen Lock aquired");
-                screenLockImageElement.src = "lock-closed.png"
-                screenLockButtonElement.dataset.status = "on";
-            } catch (err) {
-                screenLockButtonElement.dataset.status = 'off';
-                screenLockImageElement.src = "lock-open.png"
-                console.log(err);
-            }
-        } // requestWakeLock()
-
-        const handleVisibilityChange = () => {
-            if (wakeLock !== null && document.visibilityState === 'visible') {
-                requestWakeLock();
-            }
-        };
-
-        document.addEventListener('visibilitychange', handleVisibilityChange);
-
-        screenLockButtonElement.addEventListener('click', function () {
-            // if wakelock is off request it
-            if (screenLockButtonElement.dataset.status === 'off') {
-                requestWakeLock()
-            } else { // if it's on release it
-                wakeLock.release().then(() => {
-                    console.log("Screen Lock released");
-                    screenLockButtonElement.dataset.status = 'off';
-                    screenLockImageElement.src = "lock-open.png"
-                     wakeLock = null;
-                });
-            }
-        });
-    } else {
-        screenLockButtonElement.style.display = "none";
-        console.log("Screen lock not supported")
-    }
+    screenLockButtonElement.addEventListener('click', function () {
+        if(screenLockButtonElement.dataset.status == "off") {
+            noSleep.enable();
+            screenLockImageElement.src = "lock-closed.png"
+            screenLockButtonElement.dataset.status = "on";
+        } else {
+            noSleep.disable();
+            screenLockImageElement.src = "lock-open.png"
+            screenLockButtonElement.dataset.status = "off";
+        }
+    });
 };
 
 window.onload = function () {
