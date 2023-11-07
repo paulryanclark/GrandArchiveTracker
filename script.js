@@ -350,13 +350,12 @@ function initializeCloseSelectionContainersOnOutsideTap() {
     }, true);
 }
 
-const noSleep = new NoSleep();
 
 function initiailizeWakeLock() {
     const screenLockButtonElement = document.querySelector("#Screen_Lock");
     screenLockButtonElement.dataset.status = "off";
     const screenLockImageElement = document.querySelector("#Screen_Lock_Image");
-
+    const noSleep = new NoSleep();
     screenLockButtonElement.addEventListener('click', function () {
         if(screenLockButtonElement.dataset.status == "off") {
             noSleep.enable();
