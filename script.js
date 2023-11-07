@@ -137,10 +137,8 @@ Player.prototype.createEventListeners = function () {
 
     this.lifeSelectionElements().forEach((element) => {
         element.addEventListener('click', function () {
-            self.life = Number(element.dataset.life);
-            self.applyToDocument();
-            const lifeSelectionContainerElement = self.lifeSelectionContainerElement();
-            lifeSelectionContainerElement.style.display = "none";
+            const life = Number(element.dataset.life);
+            self.onUserSelectLife(life);
         });
     });
 };
@@ -178,6 +176,13 @@ Player.prototype.onLifeSelector = function () {
     } else {
         lifeSelectionContainerElement.style.display = "flex";
     }
+};
+
+Player.prototype.onUserSelectLife = function(life) {
+    this.life = life;
+    this.applyToDocument();
+    const lifeSelectionContainerElement = this.lifeSelectionContainerElement();
+    lifeSelectionContainerElement.style.display = "none";
 };
 
 Player.prototype.setLifeSelectionStyle = function () {
@@ -313,10 +318,36 @@ function onLoad() {
     player1.attachToDocument();
     player2.attachToDocument();
     attachToGlobalControls();
-    intiailizeWakeLock();
+    initiailizeWakeLock();
+    initializeCloseSelectionContainersOnOutsideTap();
 };
 
-function intiailizeWakeLock() {
+function initializeCloseSelectionContainersOnOutsideTap() {
+    window.addEventListener("click", function(e) {
+        const lifeSelectorElements = this.document.querySelectorAll(".life_selector")
+    
+        const lifeSelectors = Array.from(lifeSelectorElements)
+        
+        const lifeSelectorElementTapped = lifeSelectors.filter((element) => {
+            return element.contains(e.target);
+        });
+
+        // Ignore clicks on life selectors 
+        if(lifeSelectorElementTapped.length) {
+            return;
+        }
+
+        document.querySelectorAll(".life_selection_container").forEach((element) => {
+            if(element.style.display !== "none") {
+                if (!element.contains(e.target)){
+                    element.style.display = "none";
+                };
+            };
+        });
+    },);
+}
+
+function initiailizeWakeLock() {
     const screenLockButtonElement = document.querySelector("#Screen_Lock");
     screenLockButtonElement.dataset.status = "off";
     const screenLockImageElement = document.querySelector("#Screen_Lock_Image");
