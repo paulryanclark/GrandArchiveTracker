@@ -341,10 +341,11 @@ function initializeCloseSelectionContainersOnOutsideTap() {
             if(element.style.display !== "none") {
                 if (!element.contains(e.target)){
                     element.style.display = "none";
+                    e.stopPropagation();
                 };
             };
         });
-    },);
+    }, true);
 }
 
 function initiailizeWakeLock() {
