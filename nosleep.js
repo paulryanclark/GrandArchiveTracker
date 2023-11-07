@@ -1,3 +1,5 @@
+const { webm, mp4 } = require("./media.js");
+
 // Detect iOS browsers < version 10
 const oldIOS = () =>
   typeof navigator !== "undefined" &&
